@@ -6,7 +6,7 @@ import {
   TextInput,
   Pressable,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
 import { colors } from "../theme/colors";
 import Text from "../components/Text/Text";
@@ -26,6 +26,18 @@ const Item = ({ item, navigation }) => (
 );
 
 export default function Home({ navigation }) {
+  const [dictWords, setDictWords] = useState(words);
+
+  const searchWord = (text) => {
+    const filterWords = words.filter((word) => {
+      const wordName = word.en.toLowerCase();
+      const userInputText = text.toLowerCase();
+
+      return wordName.indexOf(userInputText) > -1;
+    });
+    // console.log("filterWords: ", filterWords);
+    setDictWords(filterWords);
+  };
   return (
     <SafeAreaView>
       <View style={styles.home}>
@@ -34,11 +46,13 @@ export default function Home({ navigation }) {
           style={styles.searchInput}
           placeholder="Type any text"
           placeholderTextColor={colors.white}
+          autoCorrect={false}
+          onChangeText={(text) => searchWord(text)}
         />
 
         <FlatList
           contentContainerStyle={styles.items}
-          data={words}
+          data={dictWords}
           renderItem={({ item }) => (
             <Item item={item} navigation={navigation} />
           )}

@@ -24,5 +24,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.black,
     padding: spacing[5],
     height: ScreenHeight,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

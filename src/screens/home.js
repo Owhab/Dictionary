@@ -4,6 +4,7 @@ import {
   ScrollView,
   FlatList,
   TextInput,
+  Pressable,
 } from "react-native";
 import React from "react";
 import Header from "../components/Header";
@@ -13,15 +14,18 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { spacing } from "../theme/spacing";
 import { words } from "../data/words";
 
-const Item = ({ item }) => (
-  <View style={styles.item}>
+const Item = ({ item, navigation }) => (
+  <Pressable
+    onPress={() => navigation.navigate("Details", { word: item })}
+    style={styles.item}
+  >
     <Text preset="small" style={styles.title}>
       {item.en}
     </Text>
-  </View>
+  </Pressable>
 );
 
-export default function Home() {
+export default function Home({ navigation }) {
   return (
     <SafeAreaView style={styles.home}>
       <Header />
@@ -30,16 +34,14 @@ export default function Home() {
         placeholder="Type any text"
         placeholderTextColor={colors.white}
       />
-      <ScrollView style={styles.container}>
-        <View>
-          <FlatList
-            contentContainerStyle={styles.items}
-            data={words}
-            renderItem={({ item }) => <Item item={item} />}
-            keyExtractor={(item) => item.id}
-          />
-        </View>
-      </ScrollView>
+
+      <FlatList
+        contentContainerStyle={styles.items}
+        data={words}
+        renderItem={({ item }) => <Item item={item} navigation={navigation} />}
+        keyExtractor={(item, index) => item.id}
+        ItemSeparatorComponent={() => <View style={styles.separator}></View>}
+      />
     </SafeAreaView>
   );
 }
@@ -63,5 +65,9 @@ const styles = StyleSheet.create({
   items: {},
   item: {
     paddingVertical: spacing[2],
+  },
+  separator: {
+    height: 1,
+    backgroundColor: colors.grey,
   },
 });

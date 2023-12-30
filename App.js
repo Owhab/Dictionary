@@ -5,6 +5,7 @@ import Home from "./src/screens/home";
 import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import Details from "./src/screens/details";
+import Info from "./src/screens/info";
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,7 @@ export default function App() {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Details" component={Details} />
+          <Stack.Screen name="Info" component={Info} />
         </Stack.Navigator>
       </NavigationContainer>
       <StatusBar style="auto" />

@@ -19,7 +19,7 @@ const Item = ({ item, navigation }) => (
     onPress={() => navigation.navigate("Details", { word: item })}
     style={styles.item}
   >
-    <Text preset="small" style={styles.title}>
+    <Text preset="h3" style={styles.title}>
       {item.en}
     </Text>
   </Pressable>
@@ -27,21 +27,25 @@ const Item = ({ item, navigation }) => (
 
 export default function Home({ navigation }) {
   return (
-    <SafeAreaView style={styles.home}>
-      <Header />
-      <TextInput
-        style={styles.searchInput}
-        placeholder="Type any text"
-        placeholderTextColor={colors.white}
-      />
+    <SafeAreaView>
+      <View style={styles.home}>
+        <Header backBtn={false} infoIcon={true} />
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Type any text"
+          placeholderTextColor={colors.white}
+        />
 
-      <FlatList
-        contentContainerStyle={styles.items}
-        data={words}
-        renderItem={({ item }) => <Item item={item} navigation={navigation} />}
-        keyExtractor={(item, index) => item.id}
-        ItemSeparatorComponent={() => <View style={styles.separator}></View>}
-      />
+        <FlatList
+          contentContainerStyle={styles.items}
+          data={words}
+          renderItem={({ item }) => (
+            <Item item={item} navigation={navigation} />
+          )}
+          keyExtractor={(item, index) => item.id}
+          ItemSeparatorComponent={() => <View style={styles.separator}></View>}
+        />
+      </View>
     </SafeAreaView>
   );
 }
@@ -49,7 +53,6 @@ export default function Home({ navigation }) {
 const styles = StyleSheet.create({
   home: {
     backgroundColor: colors.black,
-    flex: 1,
   },
   container: {
     padding: spacing[5],
@@ -62,7 +65,9 @@ const styles = StyleSheet.create({
     margin: spacing[5],
     color: colors.white,
   },
-  items: {},
+  items: {
+    paddingHorizontal: spacing[5],
+  },
   item: {
     paddingVertical: spacing[2],
   },

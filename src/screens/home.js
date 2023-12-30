@@ -56,7 +56,7 @@ export default function Home({ navigation }) {
           renderItem={({ item }) => (
             <Item item={item} navigation={navigation} />
           )}
-          keyExtractor={(item, index) => item.id}
+          keyExtractor={(item, index) => item.en}
           ItemSeparatorComponent={() => <View style={styles.separator}></View>}
         />
       </View>
